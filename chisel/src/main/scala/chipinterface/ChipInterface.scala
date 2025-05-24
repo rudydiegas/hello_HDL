@@ -5,6 +5,14 @@ import circt.stage.ChiselStage
 import blinky.Blinky       // top module
 import scala.sys.process._ // synth commands
 
+/**
+ * Generate SV files by running:
+ *  ./mill Top.runMain chipinterface.GenerateSV
+ *
+ * Synthesize design by running:
+ *  ./mill Top.runMain chipinterface.Synth
+ **/
+
 // Bundle for ULX3S IO
 class ULX3S_IO extends Bundle {
   val clk_25mhz = Input(Clock())
@@ -28,8 +36,8 @@ class ChipInterface(freq: Int) extends RawModule {
 }
 
 // TODO: add error handling for the shell commands, plus there's
-// probably a better way to do this by modifying build.mill
-
+// probably a better way to do this by modifying build.mill instead
+// of choosing which main function to run explicitly
 object gv {
   def generateSV(): Unit = {
     // delete old build dir
